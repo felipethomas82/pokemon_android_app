@@ -11,7 +11,8 @@
         android:layout_marginLeft="10dp"
         app:cardCornerRadius="20dp"
         android:layout_marginTop="20dp"
-        android:id="@+id/cardPokemon">
+        android:id="@+id/cardPokemon"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -20,8 +21,8 @@
             android:padding="10dp">
 
             <ImageView
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:id="@+id/pokeImage"
                 android:src="@drawable/pikachu"/>
 
@@ -46,7 +47,39 @@
                     android:id="@+id/tvPokeWeight"
                     android:textSize="15sp"
                     android:textColor="#FFFFFF"
-                    android:layout_marginTop="20dp"/>
+                    android:layout_marginTop="10dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Types"
+                        android:id="@+id/tvType1"
+                        android:textSize="15sp"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/back_textview_type"
+                        android:paddingRight="10dp"
+                        android:paddingLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Types"
+                        android:id="@+id/tvType2"
+                        android:textSize="15sp"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/back_textview_type"
+                        android:paddingRight="10dp"
+                        android:paddingLeft="10dp"
+                        />
+                </LinearLayout>
+
             </LinearLayout>
 
         </LinearLayout>

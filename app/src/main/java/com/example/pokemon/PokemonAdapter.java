@@ -19,6 +19,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.palette.graphics.Palette;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.JsonArray;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -48,6 +49,13 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.ViewHold
         Pokemon pokemon = pokemons.get(position);
         holder.tvName.setText( pokemon.getName() );
         holder.tvWeight.setText( "" + pokemon.getWeight() );
+        holder.tvType1.setText( getType(pokemon.getTypess(), 0) );
+        if ( getType(pokemon.getTypess(), 1).equals("") ) {
+            holder.tvType2.setVisibility(View.INVISIBLE);
+        } else {
+            holder.tvType2.setText( getType(pokemon.getTypess(), 1) );
+        }
+
         String urlImage = pokemon.getSprites()
                 .getAsJsonObject("other")
                 .getAsJsonObject("official-artwork")
@@ -77,6 +85,8 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder {
         final TextView tvName;
         final TextView tvWeight;
+        final TextView tvType1;
+        final TextView tvType2;
         final ImageView ivPokeImage;
         final CardView cvPokemon;
 
@@ -86,6 +96,8 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.ViewHold
             tvWeight = (TextView) view.findViewById(R.id.tvPokeWeight);
             ivPokeImage = (ImageView) view.findViewById(R.id.pokeImage);
             cvPokemon = (CardView) view.findViewById(R.id.cardPokemon);
+            tvType1 = (TextView) view.findViewById(R.id.tvType1);
+            tvType2 = (TextView) view.findViewById(R.id.tvType2);
         }
     }
 
@@ -113,5 +125,19 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.ViewHold
 
                     }
                 });
+    }
+
+    private String getType(JsonArray types, int position) {
+        try {
+            return types
+                    .get(position)
+                    .getAsJsonObject()
+                    .getAsJsonObject("type")
+                    .getAsJsonPrimitive("name")
+                    .getAsString();
+        } catch (Exception e) {
+            Log.d("Error", e.toString());
+        }
+        return "";
     }
 }

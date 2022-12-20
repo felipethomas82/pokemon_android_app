@@ -11,14 +11,16 @@ public class Pokemon {
     private JsonArray stats;
     private JsonObject sprites;
     private JsonObject species;
+    private JsonArray types;
 
-    public Pokemon(int id, String name, Float weight, JsonArray stats, JsonObject sprites, JsonObject species) {
+    public Pokemon(int id, String name, Float weight, JsonArray stats, JsonObject sprites, JsonObject species, JsonArray types) {
         this.id = id;
         this.name = name;
         this.weight = weight;
         this.stats = stats;
         this.sprites = sprites;
         this.species = species;
+        this.types = types;
     }
 
     public int getId() {
@@ -43,5 +45,9 @@ public class Pokemon {
 
     public JsonObject getSpecies() {
         return species;
+    }
+
+    public JsonArray getTypess() {
+        return types;
     }
 }
