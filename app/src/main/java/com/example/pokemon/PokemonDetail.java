@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -82,12 +83,29 @@ public class PokemonDetail extends Fragment {
                 Pokemon poke = response.body();
                 TextView tvName = getActivity().findViewById(R.id.tvPokeNameDetail);
                 TextView tvWeight = getActivity().findViewById(R.id.tvPokeWeightDetail);
+                TextView tvHeight = getActivity().findViewById(R.id.tvPokeHeightDetail);
+                TextView tvHP = getActivity().findViewById(R.id.tvPokeHP);
+                TextView tvAttack = getActivity().findViewById(R.id.tvPokeAttack);
+                TextView tvDefense = getActivity().findViewById(R.id.tvPokeDefense);
+                TextView tvSpDefense = getActivity().findViewById(R.id.tvPokeSpDefense);
+                TextView tvApAttack = getActivity().findViewById(R.id.tvPokeSpAttack);
+                TextView tvSpeed = getActivity().findViewById(R.id.tvPokeSpeed);
                 ImageView ivPokeImage = getActivity().findViewById(R.id.pokeImageDetail);
                 CardView cvPokemon = getActivity().findViewById(R.id.cardPokemonDetail);
+                LinearLayout llFakeBackground = getActivity().findViewById(R.id.backFakeCardView);
+
+                cvPokemon.setCardBackgroundColor(colorCardView);
+                llFakeBackground.setBackgroundColor(colorCardView);
 
                 tvName.setText(poke.getName());
                 tvWeight.setText(poke.getWeight().toString());
-                cvPokemon.setCardBackgroundColor(colorCardView);
+                tvHeight.setText(poke.getHeight().toString());
+                tvHP.setText(poke.getStat("hp").toString());
+                tvAttack.setText(poke.getStat("attack").toString());
+                tvDefense.setText(poke.getStat("defense").toString());
+                tvSpDefense.setText(poke.getStat("special-defense").toString());
+                tvApAttack.setText(poke.getStat("special-attack").toString());
+                tvSpeed.setText(poke.getStat("speed").toString());
 
                 String urlImage = poke.getSprites()
                         .getAsJsonObject("other")

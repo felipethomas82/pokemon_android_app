@@ -50,12 +50,15 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.ViewHold
         holder.tvName.setText( pokemon.getName() );
         holder.tvWeight.setText( "" + pokemon.getWeight() );
         holder.tvType1.setText( getType(pokemon.getTypess(), 0) );
+        //há casos em que não possui mais de um tipo
         if ( getType(pokemon.getTypess(), 1).equals("") ) {
             holder.tvType2.setVisibility(View.INVISIBLE);
         } else {
             holder.tvType2.setText( getType(pokemon.getTypess(), 1) );
         }
 
+        //para pegar a propriedade front_default é necessário navegar no JSON usando os métodos
+        //getAsJsonObject quando a prop for um objeto e getAsJsonPrimitive quando for o valor em si
         String urlImage = pokemon.getSprites()
                 .getAsJsonObject("other")
                 .getAsJsonObject("official-artwork")
@@ -64,10 +67,12 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.ViewHold
 
         Picasso.get().load(urlImage).into(holder.ivPokeImage);
         changeColorCardView(holder, urlImage);
-
+        //o clique é no CardView
         holder.cvPokemon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //para instanciar o FragmentTransaction é necessário usar o método  getSupportFragmentManager
+                //deste modo, é preciso fazer o casting do context com ((FragmentActivity) context)
                 FragmentTransaction fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
                 PokemonDetail pokemonDetail = PokemonDetail.newInstance(pokemon.getId(), holder.cvPokemon.getCardBackgroundColor().getDefaultColor());
                 fragmentTransaction.replace(R.id.fragmentContainerView, pokemonDetail);
@@ -101,7 +106,7 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.ViewHold
         }
     }
 
-    //método para trocar a cor de fundo do CardView.Usados os seguintes exemplos
+    //método para trocar a cor de fundo do CardView. Usados os seguintes exemplos
     //https://stackoverflow.com/questions/20181491/use-picasso-to-get-a-callback-with-a-bitmap
     //https://developer.android.com/training/material/palette-colors
     private void changeColorCardView(ViewHolder holder, String urlImage) {
